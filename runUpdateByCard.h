@@ -1,8 +1,9 @@
 #ifndef RUN_UPDATE_BY_CARD_H
 #define RUN_UPDATE_BY_CARD_H
-
+#include "global.h"
 void runUpdateByCard() {
-  Serial.println("Aguardando o cartão");
+  display::print("Aguardando o cartão");
+  delay(5000);
 }
 
 

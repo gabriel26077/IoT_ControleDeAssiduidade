@@ -2,27 +2,17 @@
 #define RUN_HOME_MENU_H
 
 #include "KeyPadFunctions.h"
-
-
+#include "displayFunctions.h"
+#include "mqttFunctions.h"
 
 char runHomeMenu(){
-  Serial.println("Seleciona a opção");
-  Serial.println("1 - update/codigo");
-  Serial.println("2 - update/cartao");
-  Serial.println("3 - gerar relatorio");
 
+  String content = "Selecione uma opcao\n\n1 - update/codigoa\n\n2 - update/cartao\n\n3 - gerar relatorio\n";
+
+  display::print(content);
+  
   char ans = listen_keypad();
-  
-  Serial.print("Selecionado: ");
-  
-  Serial.println(ans);
-  
-  for(int i=0; i<3;i++){
-    Serial.print(".");
-    delay(500);
-  }
-  Serial.print("\n");
-  Serial.println("////////////////");
+ 
   return ans;
 }
 

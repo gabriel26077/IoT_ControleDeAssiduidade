@@ -1,30 +1,44 @@
+#include "global.h"
+#include "config.h"
 #include <FS.h>
 #include "SPIFFS.h"
-#include "FSFunctions.h"
 #include <Keypad.h>
-
+#include "WiFi.h"
+#include "WiFiClient.h"
+#include "wifiFunctions.h"
+#include "PubSubClient.h"
+#include "mqttFunctions.h"
 #include "runHomeMenu.h"
 #include "runUpdateByCard.h"
 #include "runUpdateByCode.h"
 #include "runGenerateReport.h"
 #include "runSendReport.h"
 #include "KeyPadFunctions.h"
+#include "displayFunctions.h"
+#include "databaseFunctions.h"
 
-String buffer_file_bolsistas;
-char buffer_de_teclado[10];
-byte size_b_t = 0;
+String nome = "adsas";
+
 
 void setup(){
+  
+  SPIFFS.begin(true);
+  
   Serial.begin(9600);
+  
+  display::init();
+ 
+  display::print("Sistema\nde Assiduidade\nde bolsistas\nIoT Unidade 2\nJoao Pedro\nGabriel Neto");
   delay(5000);
-  Serial.println("iniciando processos...");
-  //buffer_file_bolsistas = readFile("/dados/bolsistas.txt");
+  
+  wifi::init();
+  mqtt::init();
 }
   
 void loop(){
-
   char op = runHomeMenu();
-
+  sprintf(BUFFER, "Opcao escolhida no menu: %c", op);
+  Serial.println(BUFFER);
   switch(op){
     case '1':
       runUpdateByCode();
@@ -41,13 +55,13 @@ void loop(){
       delay(2000);
     
   }
-  
-  delay(1000);
 
+  
 }
 
 
 
+
 void showInvalidOptionAlert(){
-    Serial.println("Erro, digite uma opcao valida!");
+    display::print("ERRO\ndigite uma\nopcao valida!");
 }

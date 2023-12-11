@@ -24,22 +24,5 @@ char listen_keypad(){
   return key;
 }
 
-String read_string(int max_length, char endChar, void (*execute)(char)){
-
-    String str = "";
-    
-    for(int i=0; i<max_length; i++){
-      
-      char key = listen_keypad();
-
-      if(key == endChar)break;
-
-      str += key;
-           
-      execute(key);
-    }
-    
-    return str;
-}
 
 #endif
